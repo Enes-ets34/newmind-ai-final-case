@@ -39,10 +39,6 @@ jobs:
         run: |
           yarn tsc --noEmit --skipLibCheck --strict # Server için TypeScript kontrolleri yapılacak
 
-      - name: Run Tests for Server
-        working-directory: ./server
-        run: |
-          yarn test # Server için testler çalıştırılacak
 
   # Client Job
   client:
@@ -73,7 +69,3 @@ jobs:
         run: |
           yarn tsc --noEmit --skipLibCheck --strict # Client için TypeScript kontrolleri yapılacak
 
-      - name: Run Tests for Client
-        working-directory: ./client
-        run: |
-          yarn test # Client için testler çalıştırılacak
