@@ -22,7 +22,7 @@ jobs:
       - name: Set up Node.js for Server
         uses: actions/setup-node@v2
         with:
-          node-version: '16' # Server için kullanılan Node versiyonunu ayarlıyoruz
+          node-version: '18.x' # Server için kullanılan Node versiyonunu ayarlıyoruz
 
       - name: Install dependencies for Server
         working-directory: ./server
@@ -56,7 +56,7 @@ jobs:
       - name: Set up Node.js for Client
         uses: actions/setup-node@v2
         with:
-          node-version: '16' # Client için kullanılan Node versiyonunu ayarlıyoruz
+          node-version: '18.x' # Client için kullanılan Node versiyonunu ayarlıyoruz
 
       - name: Install dependencies for Client
         working-directory: ./client
