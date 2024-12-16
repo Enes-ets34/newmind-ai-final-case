@@ -1,19 +1,18 @@
-import express, { Request, Response } from 'express';
-import connectDB from './config/db';
-import config from '@/config';
+import express from 'express';
+import dotenv from 'dotenv';
+import authRoutes from '@routes/auth';
+import connectDB from '@config/db';
 
-const app = express();
-
-app.use(express.json());
-
-const port = config.port || 3000;
+dotenv.config();
 
 connectDB();
 
-app.get('/', (req: Request, res: Response) => {
-  console.log('Request:', req);
-  res.send('Hello from the server!');
-});
+const app = express();
+const port = process.env.PORT || 3000;
+
+app.use(express.json());
+
+app.use('/api/auth', authRoutes);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
