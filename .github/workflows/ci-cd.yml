@@ -29,10 +29,10 @@ jobs:
         run: |
           yarn install # Server için bağımlılıkları yüklüyoruz
 
-      - name: Run lint for Server
+      - name: Run build for Server
         working-directory: ./server
         run: |
-          yarn lint # Server tarafında linting işlemi yapılacak
+          yarn run build
 
       - name: Run TypeScript checks for Server
         working-directory: ./server
@@ -63,10 +63,10 @@ jobs:
         run: |
           yarn install # Client için bağımlılıkları yüklüyoruz
 
-      - name: Run lint for Client
+      - name: Run build for Client
         working-directory: ./client
         run: |
-          yarn lint # Client tarafında linting işlemi yapılacak
+          yarn run build
 
       - name: Run TypeScript checks for Client
         working-directory: ./client
