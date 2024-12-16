@@ -1,11 +1,17 @@
 import express, { Request, Response } from 'express';
+import connectDB from './config/db';
+import config from '@/config';
 
 const app = express();
-const port = process.env.PORT || 3000;
+
+app.use(express.json());
+
+const port = config.port || 3000;
+
+connectDB();
 
 app.get('/', (req: Request, res: Response) => {
-  console.log('req',req);
-  console.log("update for pr server");
+  console.log('Request:', req);
   res.send('Hello from the server!');
 });
 
