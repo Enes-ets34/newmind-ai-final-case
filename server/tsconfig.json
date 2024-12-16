@@ -1,4 +1,7 @@
 {
+  "ts-node": {
+    "require": ["tsconfig-paths/register"]
+  },
   "compilerOptions": {
     "target": "ES6",
     "module": "commonjs",
@@ -7,9 +10,19 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "outDir": "./dist",
-    "rootDir": "./src",
+    "baseUrl": "./src",
     "noUnusedLocals": true,
-    "noUnusedParameters": true
+    "noUnusedParameters": true,
+    "paths": {
+      "@/*": ["./*"],
+      "@config/*": ["config/*"],
+      "@controllers/*": ["controllers/*"],
+      "@middlewares/*": ["middlewares/*"],
+      "@models/*": ["models/*"],
+      "@routes/*": ["routes/*"],
+      "@services/*": ["services/*"],
+      "@utils/*": ["utils/*"]
+    }
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules"]
