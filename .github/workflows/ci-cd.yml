@@ -1,0 +1,79 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+  pull_request:
+    branches:
+      - main
+      - dev
+
+jobs:
+  server:
+    name: Server CI
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js for Server
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16' # Server için kullanılan Node versiyonunu ayarlıyoruz
+
+      - name: Install dependencies for Server
+        working-directory: ./server
+        run: |
+          yarn install # Server için bağımlılıkları yüklüyoruz
+
+      - name: Run lint for Server
+        working-directory: ./server
+        run: |
+          yarn lint # Server tarafında linting işlemi yapılacak
+
+      - name: Run TypeScript checks for Server
+        working-directory: ./server
+        run: |
+          yarn tsc --noEmit --skipLibCheck --strict # Server için TypeScript kontrolleri yapılacak
+
+      - name: Run Tests for Server
+        working-directory: ./server
+        run: |
+          yarn test # Server için testler çalıştırılacak
+
+  # Client Job
+  client:
+    name: Client CI
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js for Client
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16' # Client için kullanılan Node versiyonunu ayarlıyoruz
+
+      - name: Install dependencies for Client
+        working-directory: ./client
+        run: |
+          yarn install # Client için bağımlılıkları yüklüyoruz
+
+      - name: Run lint for Client
+        working-directory: ./client
+        run: |
+          yarn lint # Client tarafında linting işlemi yapılacak
+
+      - name: Run TypeScript checks for Client
+        working-directory: ./client
+        run: |
+          yarn tsc --noEmit --skipLibCheck --strict # Client için TypeScript kontrolleri yapılacak
+
+      - name: Run Tests for Client
+        working-directory: ./client
+        run: |
+          yarn test # Client için testler çalıştırılacak
