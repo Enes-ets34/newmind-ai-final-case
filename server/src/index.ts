@@ -5,6 +5,7 @@ const port = process.env.PORT || 3000;
 
 app.get('/', (req: Request, res: Response) => {
   console.log('req',req);
+  console.log("update for pr server");
   res.send('Hello from the server!');
 });
 
