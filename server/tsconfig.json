@@ -11,6 +11,7 @@
     "forceConsistentCasingInFileNames": true,
     "outDir": "./dist",
     "baseUrl": "./src",
+    "typeRoots": ["node_modules/@types", "src/types"],
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "paths": {
@@ -24,6 +25,6 @@
       "@utils/*": ["utils/*"]
     }
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "src/types/**/*.d.ts"],
   "exclude": ["node_modules"]
 }
