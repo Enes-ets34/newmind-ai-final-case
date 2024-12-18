@@ -39,7 +39,6 @@ jobs:
         run: |
           yarn tsc --noEmit --skipLibCheck --strict # Server için TypeScript kontrolleri yapılacak
 
-
   # Client Job
   client:
     name: Client CI
@@ -52,7 +51,7 @@ jobs:
       - name: Set up Node.js for Client
         uses: actions/setup-node@v2
         with:
-          node-version: '18.x' # Client için kullanılan Node versiyonunu ayarlıyoruz
+          node-version: '20.x'
 
       - name: Install dependencies for Client
         working-directory: ./client
@@ -68,4 +67,3 @@ jobs:
         working-directory: ./client
         run: |
           yarn tsc --noEmit --skipLibCheck --strict # Client için TypeScript kontrolleri yapılacak
-
