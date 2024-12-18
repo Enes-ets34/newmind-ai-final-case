@@ -1,35 +1,73 @@
-import { useState } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
-import './App.css';
+import './index.css';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import { Suspense } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Header from './components/header/Header';
+import Modal from '@/components/modal/Modal';
+import Toast from '@/components/toast/Toast';
+import Loading from '@/components/loading/Loading';
+import CustomQueryClientProvider from '@/providers/CustomQueryClientProvider';
 
-function App() {
-  const [count, setCount] = useState<number>(0);
+import HomePage from '@/pages/home/HomePage';
+import CategoriesScreen from './pages/categories/page';
+import ProtectedRoute from './components/protected-route/ProtectedRoute';
+import ProfileScreen from './pages/profile/page';
+import ProductDetailScreen from './pages/products/[slug]/page';
 
+export default function App() {
   return (
-    <>
-      <div>
-        <a href='https://vite.dev' target='_blank'>
-          <img src={viteLogo} className='logo' alt='Vite logo' />
-        </a>
-        <a href='https://react.dev' target='_blank'>
-          <img src={reactLogo} className='logo react' alt='React logo' />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className='card'>
-        <button onClick={() => setCount(count => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className='read-the-docs'>
-        update for pr client
-      </p>
-    </>
+    <Suspense fallback={<Loading />}>
+      <CustomQueryClientProvider>
+        <Router>
+          <Loading />
+          <Header />
+          <Modal />
+          <Toast />
+          <Routes>
+            <Route
+              path='/'
+              element={
+                <ProtectedRoute>
+                  <HomePage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path='/categories'
+              element={
+                <ProtectedRoute>
+                  <CategoriesScreen />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path='/profile'
+              element={
+                <ProtectedRoute>
+                  <ProfileScreen />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path='/profile/:path'
+              element={
+                <ProtectedRoute>
+                  <ProfileScreen />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path='/product/:slug'
+              element={
+                <ProtectedRoute>
+                  <ProductDetailScreen />
+                </ProtectedRoute>
+              }
+            />
+          </Routes>
+        </Router>
+      </CustomQueryClientProvider>
+    </Suspense>
   );
 }
-
-export default App;
