@@ -1,68 +1,59 @@
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
+html,
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  @apply antialiased text-sm bg-[#f8f7f9];
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
+}
+.slick-prev:before,
+.slick-next:before {
+  display: none;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+.custom-slick .slick-prev {
+  display: none;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+.custom-slick .slick-next {
+  display: none;
+}
+.custom-marker-icon .pin {
+  width: 20px;
+  height: 20px;
+  background-color: #5d3ebc;
+  border-radius: 50%;
+  position: relative;
+  top: -10px;
+  left: -10px;
+  box-shadow: 0 0 0 2px white;
+}
+
+.custom-marker-icon .pulse {
+  width: 30px;
+  height: 30px;
+  background-color: rgba(153, 59, 246, 0.3);
+  border-radius: 50%;
+  position: absolute;
+  top: -15px;
+  left: -15px;
+  animation: pulse-animation 1.5s ease-out infinite;
+}
+
+@keyframes pulse-animation {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.6;
   }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
   }
 }

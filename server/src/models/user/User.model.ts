@@ -1,11 +1,13 @@
-import mongoose, { Document, Schema } from 'mongoose';
+import mongoose, { Document, ObjectId, Schema } from 'mongoose';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import config from '@/config';
 export interface IUser extends Document {
+  id: ObjectId;
   email: string;
   password: string;
-  name: string;
+  phone: string;
+  fullName: string;
   isAdmin: boolean;
   comparePassword: (password: string) => Promise<boolean>;
   generatejwtFromUser: () => Promise<string>;
@@ -19,11 +21,17 @@ const UserSchema: Schema = new Schema(
       unique: true,
       trim: true,
     },
+    phone: {
+      type: String,
+      required: true,
+      unique: true,
+      trim: true,
+    },
     password: {
       type: String,
       required: true,
     },
-    name: {
+    fullName: {
       type: String,
       required: true,
     },
@@ -49,7 +57,7 @@ UserSchema.methods.generatejwtFromUser = function () {
 
   const payload = {
     _id: this.id,
-    name: this.name,
+    fullName: this.fullName,
     isAdmin: this.isAdmin,
   };
   const token = jwt.sign(payload, JWT_SECRET_KEY, {
