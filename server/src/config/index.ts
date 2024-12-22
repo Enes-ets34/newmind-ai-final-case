@@ -14,7 +14,7 @@ export type Config = {
 
 const config: Config = {
   environment: process.env.NODE_ENV || 'development',
-  port: parseInt(process.env.PORT || '3000', 10),
+  port: parseInt(process.env.PORT || '3001', 10),
 
   mongoUri: process.env.MONGO_URI || 'mongodb://localhost:27017/newmindai-final-case-test-db',
 
@@ -23,7 +23,7 @@ const config: Config = {
 
   jwtSecret: process.env.JWT_SECRET || 'default_secret_key',
 
-  kafkaBroker: process.env.KAFKA_BROKER || 'localhost:9092',
+  kafkaBroker: process.env.KAFKA_BROKER || 'kafka:9092',
 };
 
 export default config;

@@ -14,6 +14,7 @@ import CategoriesScreen from './pages/categories/page';
 import ProtectedRoute from './components/protected-route/ProtectedRoute';
 import ProfileScreen from './pages/profile/page';
 import ProductDetailScreen from './pages/products/[slug]/page';
+import CartScreen from './pages/cart/page';
 
 export default function App() {
   return (
@@ -62,6 +63,14 @@ export default function App() {
               element={
                 <ProtectedRoute>
                   <ProductDetailScreen />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path='/cart'
+              element={
+                <ProtectedRoute>
+                  <CartScreen />
                 </ProtectedRoute>
               }
             />

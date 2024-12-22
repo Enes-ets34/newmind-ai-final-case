@@ -86,7 +86,7 @@ export const logout = async (req: Request, res: Response): Promise<void> => {
 };
 
 export const tst = async (req: Request, res: Response): Promise<void> => {
-  console.log('req :> > ', req);
+  console.log('req :> > ', req.filter);
   res.status(200).send({
     message: 'successfully',
   });

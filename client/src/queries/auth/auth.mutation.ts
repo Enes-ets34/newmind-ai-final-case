@@ -16,6 +16,7 @@ import { useNavigate } from 'react-router-dom';
 import { User } from '../users/user.types';
 import { useGetCartQuery } from '../cart/cart.query';
 import { useCartStore } from '@/store/cart';
+import { GetCartResponse } from '../cart/cart.types';
 
 export const useRegisterMutation = () => {
   const { setUser, setAccessToken } = useAuthStore();
@@ -109,7 +110,7 @@ export const useTestTokenMutation = () => {
   const { addToast } = useToastStore();
   const { hideLoading } = useLoadingStore();
   const { setCart } = useCartStore();
-  const { data: cartData, isSuccess } = useGetCartQuery();
+  const { data: cartData, isSuccess, isError } = useGetCartQuery();
 
   return useMutation<TestTokenResponse, AuthErrorResponse>({
     mutationFn: async () => {
@@ -117,10 +118,12 @@ export const useTestTokenMutation = () => {
       return response.data;
     },
     onSuccess: async (data: TestTokenResponse) => {
-      addToast(data?.message as string, ToastEnum.SUCCESS);
-
+      console.log(data);
       if (cartData && isSuccess) {
         setCart(cartData);
+      }
+      if (isError) {
+        setCart({} as GetCartResponse);
       }
       hideLoading();
     },

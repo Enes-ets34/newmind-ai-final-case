@@ -13,7 +13,7 @@ export interface IProduct extends Document {
   discountedPrice: number;
 }
 
-const ProductSchema: Schema<IProduct> = new Schema(
+export const ProductSchema: Schema<IProduct> = new Schema(
   {
     title: {
       type: String,

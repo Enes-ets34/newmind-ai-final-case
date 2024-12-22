@@ -1,7 +1,7 @@
 import { Address } from '@/models/address/Address.model';
 import { IUser } from '@/models/user/User.model';
 import { Request, Response } from 'express';
-interface IAuthRequest extends Request {
+export interface IAuthRequest extends Request {
   user?: IUser;
 }
 export const getAdressList = async (

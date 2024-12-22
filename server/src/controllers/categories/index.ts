@@ -6,7 +6,7 @@ export const getAllCategories = async (
   res: Response
 ): Promise<void> => {
   const categories = await Category.find();
-  console.log('req :>> ', req);
+  console.log('req :>> ', req.filter);
   res.status(200).send({
     data: categories,
   });

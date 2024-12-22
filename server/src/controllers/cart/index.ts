@@ -11,7 +11,6 @@ export const getCart = async (
   res: Response
 ): Promise<void> => {
   const userId = req.user?.id;
-
   if (!userId) {
     res.status(400).send({ message: 'User ID is missing' });
     return;
@@ -217,7 +216,8 @@ const calculateTotalPrice = async (products: any[]) => {
   for (const product of products) {
     const productData = await Product.findById(product.product);
     if (productData) {
-      totalPrice += productData.price * product.quantity;
+      totalPrice +=
+        productData.discountedPrice || productData.price * product.quantity;
     }
   }
   return totalPrice;
