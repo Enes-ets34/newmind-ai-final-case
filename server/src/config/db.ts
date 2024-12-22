@@ -4,12 +4,13 @@ import config from '.';
 const connectDB = async (): Promise<void> => {
   try {
     await mongoose.connect(config.mongoUri, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
+      serverSelectionTimeoutMS: 30000,
     } as ConnectOptions);
-    console.log('MongoDB connected successfully!');
+    mongoose.set('bufferCommands', false);
+
+    console.log('MongoDB connected successfully! MAIN');
   } catch (error) {
-    console.error('MongoDB bağlantı hatası:', error);
+    console.error('MongoDB bağlantı hatası MAIN:', error);
     process.exit(1);
   }
 };

@@ -1,3 +1,4 @@
+import { createProxyMiddleware } from 'http-proxy-middleware';
 import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
@@ -29,6 +30,27 @@ app.use('/api/products', productRoutes);
 app.use('/api/categories', categoryRoutes);
 app.use('/api/addresses', addressRoutes);
 app.use('/api/cart', cartRoutes);
+
+app.use(
+  '/api/payments',
+  createProxyMiddleware({
+    target: 'http://localhost:4000',
+    changeOrigin: true,
+    pathRewrite: {
+      '^/api': '',
+    },
+  })
+);
+app.use(
+  '/api/invoices',
+  createProxyMiddleware({
+    target: 'http://localhost:4002',
+    changeOrigin: true,
+    pathRewrite: {
+      '^/api': '',
+    },
+  })
+);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

@@ -1,5 +1,4 @@
- ;
-import  { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useAuthStore } from '@/store/auth';
 import SkeletonLoader from '@/components/skeleton-loader/SkeletonLoader';
 import CartView from '@/views/cart/CartView';
@@ -13,6 +12,7 @@ import { RoutePaths } from '@/types/RoutePaths.enum';
 import useMediaQuery, { ScreenSizes } from '@/hooks/useMediaQuery';
 import { useAddressStore } from '@/store/address';
 import { Address } from '@/queries/address/address.types';
+import { GetCartResponse } from '@/queries/cart/cart.types';
 
 const CartScreen: React.FC = () => {
   const navigate = useNavigation();
@@ -21,16 +21,16 @@ const CartScreen: React.FC = () => {
   const { deleteCart } = useDeleteCartMutation();
 
   const { user } = useAuthStore();
-  const { products, totalPrice } = useCartStore();
+  const { products, totalPrice, setCart } = useCartStore();
   const { selectedAddress } = useAddressStore();
 
   const isMobileScreen = useMediaQuery(ScreenSizes.Small);
   useEffect(() => {
-    document.title = 'Sepetim';
     if (!products || products?.length === 0) {
       navigate(RoutePaths.Home);
+      setCart({} as GetCartResponse);
     }
-  }, [products]);
+  }, [products, setCart]);
   if (!user) return <SkeletonLoader />;
   return (
     <CartView

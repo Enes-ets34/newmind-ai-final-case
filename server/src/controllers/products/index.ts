@@ -7,7 +7,7 @@ export const getAllProducts = async (
   res: Response
 ): Promise<void> => {
   const products = await Product.find();
-  console.log('req :>> ', req);
+  console.log('req :>> ', req.filter);
   res.status(200).send({
     data: products,
   });
@@ -17,7 +17,6 @@ export const getSingleProduct = async (
   res: Response
 ): Promise<void> => {
   const product = await Product.findOne({ slug: req.params.slug });
-  console.log('req :>> ', req);
   res.status(200).send({
     data: product,
   });

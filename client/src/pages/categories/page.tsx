@@ -16,6 +16,8 @@ import { useLoadingStore } from '@/store/loading';
 import { useCartStore } from '@/store/cart';
 
 import CategoriesView from '@/views/categories/CategoriesView';
+import { GetCartResponse } from '@/queries/cart/cart.types';
+import { useGetCartQuery } from '@/queries/cart/cart.query';
 
 export default function CategoriesScreen() {
   const location = useLocation();
@@ -30,7 +32,7 @@ export default function CategoriesScreen() {
   const { setCategories, categories } = useCategoryStore();
   const { setProducts, products } = useProductStore();
   const { showLoading, hideLoading } = useLoadingStore();
-  const { totalPrice } = useCartStore();
+  const { totalPrice, setCart } = useCartStore();
   const cartProducts = useCartStore(state => state.products);
 
   const { user } = useAuthStore();
@@ -42,6 +44,13 @@ export default function CategoriesScreen() {
     isLoading: campaignQueryIsLoading,
   } = useCampaignsQuery();
 
+  const {
+    data: cartQueryData,
+    isError: cartQueryIsError,
+    isSuccess: cartQueryIsSuccess,
+    isLoading: cartIsLoading,
+    refetch: cartQueryRefetch,
+  } = useGetCartQuery();
   const {
     data: productsQueryData,
     isSuccess: productQueryIsSuccess,

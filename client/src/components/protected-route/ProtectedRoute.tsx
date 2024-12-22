@@ -14,6 +14,7 @@ import { Address } from '@/queries/address/address.types';
 import useClosestAddress from '@/hooks/useClosestAddress';
 import { useGetCartQuery } from '@/queries/cart/cart.query';
 import { useCartStore } from '@/store/cart';
+import { GetCartResponse } from '@/queries/cart/cart.types';
 
 const ProtectedRoute = ({
   children,
@@ -30,12 +31,14 @@ const ProtectedRoute = ({
   const cartQuery = useGetCartQuery();
   const addressList = addressListQuery?.data;
   const cartData = cartQuery?.data;
+  const refetch = cartQuery?.refetch;
+  const cartIsError = cartQuery?.isError;
   const isProtected = useProtectedRoute(location?.pathname);
   const { setUser, setAccessToken, user } = useAuthStore();
   const { showLoading, hideLoading } = useLoadingStore();
   const { openModal, setContent } = useModalStore();
   const { setAddressList, setSelectedAddress } = useAddressStore();
-  const { setCart } = useCartStore();
+  const { setCart, products } = useCartStore();
   useClosestAddress(addressList as Address[], setSelectedAddress);
 
   useEffect(() => {

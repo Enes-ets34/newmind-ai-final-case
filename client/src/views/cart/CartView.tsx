@@ -1,5 +1,3 @@
- ;
-
 import React from 'react';
 import { CartProps } from './cart.types';
 
@@ -8,6 +6,7 @@ import AddressCard from './_components/address-card/AddressCard';
 import TotalPrice from './_components/total-price/TotalPrice';
 import Button from '@/components/button/Button';
 import { cartViewStyles } from './cart.styles';
+import { useCreatePaymentMutation } from '@/queries/payment/payment.mutation';
 const CartView: React.FC<CartProps> = ({
   user,
   products,
@@ -17,8 +16,9 @@ const CartView: React.FC<CartProps> = ({
   totalPrice,
   selectedAddress,
 }) => {
-  const handleOnClick = () => {
-    console.log('clicked...');
+  const paymentMutation = useCreatePaymentMutation();
+  const handleOnClick = async () => {
+    await paymentMutation.mutate({});
   };
   if (!user) return null;
   return (
@@ -39,7 +39,7 @@ const CartView: React.FC<CartProps> = ({
             />
             <Button
               className='hidden sm:block'
-              text='Ödemeye Geç'
+              text='Sipariş ver'
               color='primary'
               onClick={handleOnClick}
             />

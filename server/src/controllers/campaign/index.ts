@@ -6,7 +6,7 @@ export const getAllCampaigns = async (
   res: Response
 ): Promise<void> => {
   const campaigns = await Campaign.find();
-  console.log('req :>> ', req);
+  console.log('req :>> ', req.filter);
   res.status(200).send({
     data: campaigns,
   });
